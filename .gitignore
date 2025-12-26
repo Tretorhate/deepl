@@ -1,0 +1,70 @@
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Type checkers
+.mypy_cache/
+.pytype/
+
+# Python environments
+.python-version
+
+# Model artifacts and outputs (ignored by default; remove if you want these tracked)
+models/
+checkpoints/
+*.ckpt
+*.pth
+*.h5
+
+
+# Datasets (ignored by default; remove if you intend to include small datasets)
+data/
+
+# Keep a README or placeholder file if you want to track empty folders
+# e.g. add `data/.gitkeep` and commit it if you want the folder structure tracked
