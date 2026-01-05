@@ -24,7 +24,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from utils.data_loader import load_mnist_numpy
 from utils.visualization import plot_training_curves, plot_confusion_matrix, plot_filters, plot_activation_maps
-from config import RESULTS_DIR, RANDOM_SEED, QUICK_MODE, HYBRID_MODE
+from config import RESULTS_DIR, RANDOM_SEED, get_section_mode, is_quick_mode, is_hybrid_mode
+# Get mode for section 3
+_section3_mode = get_section_mode(3)
+QUICK_MODE = is_quick_mode(3)
+HYBRID_MODE = is_hybrid_mode(3)
 
 np.random.seed(RANDOM_SEED)
 

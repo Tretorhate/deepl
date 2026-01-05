@@ -159,7 +159,11 @@ def train_resnet(model, train_loader, val_loader, epochs, learning_rate, device)
 
 def run_section4_experiments():
     """Run all Section 4 experiments."""
-    from config import QUICK_MODE, HYBRID_MODE
+    from config import get_section_mode, is_quick_mode, is_hybrid_mode
+    # Get mode for this section
+    section_mode = get_section_mode(4)
+    QUICK_MODE = is_quick_mode(4)
+    HYBRID_MODE = is_hybrid_mode(4)
     
     print("=" * 50)
     print("Section 4: ResNet and Modern Architectures")

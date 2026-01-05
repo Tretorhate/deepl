@@ -296,7 +296,11 @@ def calculate_receptive_field(layers):
 
 def run_cnn_training():
     """Train complete CNN on MNIST."""
-    from config import QUICK_MODE, HYBRID_MODE
+    from config import get_section_mode, is_quick_mode, is_hybrid_mode
+    # Get mode for this section
+    section_mode = get_section_mode(3)
+    QUICK_MODE = is_quick_mode(3)
+    HYBRID_MODE = is_hybrid_mode(3)
     
     print("=" * 50)
     print("Complete CNN Training on MNIST")

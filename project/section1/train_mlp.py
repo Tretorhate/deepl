@@ -80,7 +80,11 @@ def train_mlp(X_train, y_train, X_val, y_val, model, epochs, learning_rate, batc
 
 def run_section1_experiments():
     """Run all Section 1 experiments."""
-    from config import QUICK_MODE, HYBRID_MODE
+    from config import get_section_mode, is_quick_mode, is_hybrid_mode
+    # Get mode for this section
+    section_mode = get_section_mode(1)
+    QUICK_MODE = is_quick_mode(1)
+    HYBRID_MODE = is_hybrid_mode(1)
     
     print("Loading MNIST dataset...")
     X_train, y_train, X_test, y_test = load_mnist_numpy()

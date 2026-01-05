@@ -9,46 +9,8 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), 'results')
 MODELS_DIR = os.path.join(os.path.dirname(__file__), 'models')
 
-# Section 1: MLP Configuration
-SECTION1_CONFIG = {
-    'hidden_sizes': [128, 64],
-    'activation': 'relu',
-    'learning_rate': 0.001,
-    'batch_size': 64,
-    'epochs': 20,
-    'optimizer': 'adam',
-    'loss': 'cross_entropy',
-}
-
-# Section 2: Optimization Configuration
-SECTION2_CONFIG = {
-    'learning_rates': [0.001, 0.01, 0.1],
-    'optimizers': ['sgd', 'adam', 'rmsprop'],
-    'epochs': 20,
-    'batch_size': 64,
-    'weight_decay': 0.0001,  # L2 regularization
-}
-
-# Section 3: CNN Configuration
-SECTION3_CONFIG = {
-    'num_filters': [32, 64, 128],
-    'kernel_sizes': [3, 5],
-    'pool_sizes': [2],
-    'epochs': 10,
-    'batch_size': 32,
-    'learning_rate': 0.001,
-    'optimizer': 'adam',
-}
-
-# Section 4: ResNet Configuration
-SECTION4_CONFIG = {
-    'num_layers': [18, 34, 50],
-    'epochs': 10,
-    'batch_size': 32,
-    'learning_rate': 0.001,
-    'optimizer': 'adam',
-    'pretrained': True,
-}
+# Section configurations are set dynamically based on per-section modes below
+# Initial definitions removed - now handled by get_section_config()
 
 # Device configuration
 # Note: We check torch.cuda.is_available() at runtime in the actual code
@@ -62,90 +24,178 @@ except ImportError:
 # Random seed for reproducibility
 RANDOM_SEED = 42
 
-# Execution mode options:
-# - QUICK_MODE = True: Fast testing (30-60 min) - skips some experiments
-# - HYBRID_MODE = True: Balanced mode (2-4 hours) - all experiments, reduced epochs
-# - Both False: Full mode (6-11 hours) - complete experiments with full epochs
-QUICK_MODE = False  # Set to True for quick testing only
-HYBRID_MODE = False  # Set to False for full dataset, True for balanced (30k samples, 8-10 epochs)
-# For 95% accuracy in 0.5-1 hour: Use HYBRID_MODE = False with optimized settings below
+# Per-section execution mode options:
+# Each section can have its own mode: 'quick', 'hybrid', or 'full'
+# Modes can be set via command-line or interactive menu
+# Default modes (can be overridden):
+SECTION1_MODE = 'full'  # 'quick', 'hybrid', or 'full'
+SECTION2_MODE = 'full'  # 'quick', 'hybrid', or 'full'
+SECTION3_MODE = 'full'  # 'quick', 'hybrid', or 'full'
+SECTION4_MODE = 'full'  # 'quick', 'hybrid', or 'full'
 
-# Hybrid mode configurations (used when HYBRID_MODE = True)
-# Runs all required experiments but with reduced epochs/datasets for faster execution
-if HYBRID_MODE:
-    SECTION1_CONFIG = {
-        'hidden_sizes': [128, 64],
-        'activation': 'relu',
-        'learning_rate': 0.001,
-        'batch_size': 128,  # Increased batch size for faster processing (was 64)
-        'epochs': 3,  # Reduced from 5 for faster execution (was 5)
-        'optimizer': 'adam',
-        'loss': 'cross_entropy',
-    }
-    
-    SECTION2_CONFIG = {
-        'learning_rates': [0.001, 0.01, 0.1],
-        'optimizers': ['sgd', 'adam', 'rmsprop'],  # All 3 optimizers
-        'epochs': 3,  # Reduced from 5 for faster execution (was 5)
-        'batch_size': 128,  # Increased batch size for faster processing (was 64)
-        'weight_decay': 0.0001,
-    }
-    
-    SECTION3_CONFIG = {
-        'num_filters': [32, 64, 128],
-        'kernel_sizes': [3, 5],
-        'pool_sizes': [2],
-        'epochs': 3,  # Keep at 3 (already minimal)
-        'batch_size': 64,  # Increased batch size for faster processing (was 32)
-        'learning_rate': 0.001,
-        'optimizer': 'adam',
-    }
-    
-    SECTION4_CONFIG = {
-        'num_layers': [18, 34, 50],
-        'epochs': 2,  # Reduced from 3 for faster execution (was 3)
-        'batch_size': 64,  # Increased batch size for faster processing (was 32)
-        'learning_rate': 0.001,
-        'optimizer': 'adam',
-        'pretrained': True,
-    }
+# Legacy global modes (for backward compatibility, but per-section modes take precedence)
+QUICK_MODE = False
+HYBRID_MODE = False
 
-# Quick mode configurations (used when QUICK_MODE = True)
-# Only for testing - skips some experiments
-elif QUICK_MODE:
-    SECTION1_CONFIG = {
-        'hidden_sizes': [64, 32],  # Smaller network
-        'activation': 'relu',
-        'learning_rate': 0.001,
-        'batch_size': 128,  # Larger batch for faster training
-        'epochs': 3,  # Reduced from 20
-        'optimizer': 'adam',
-        'loss': 'cross_entropy',
+def get_section_mode(section_num):
+    """Get execution mode for a specific section."""
+    mode_map = {
+        1: SECTION1_MODE,
+        2: SECTION2_MODE,
+        3: SECTION3_MODE,
+        4: SECTION4_MODE,
     }
-    
-    SECTION2_CONFIG = {
-        'learning_rates': [0.001, 0.01, 0.1],
-        'optimizers': ['sgd', 'adam', 'rmsprop'],
-        'epochs': 3,  # Reduced from 20
-        'batch_size': 128,
-        'weight_decay': 0.0001,
+    return mode_map.get(section_num, 'full')
+
+def is_quick_mode(section_num=None):
+    """Check if quick mode is enabled for a section."""
+    if section_num:
+        return get_section_mode(section_num) == 'quick'
+    return QUICK_MODE
+
+def is_hybrid_mode(section_num=None):
+    """Check if hybrid mode is enabled for a section."""
+    if section_num:
+        return get_section_mode(section_num) == 'hybrid'
+    return HYBRID_MODE
+
+def is_full_mode(section_num=None):
+    """Check if full mode is enabled for a section."""
+    if section_num:
+        return get_section_mode(section_num) == 'full'
+    return not QUICK_MODE and not HYBRID_MODE
+
+# Mode-specific configurations
+# These are applied based on per-section modes
+def get_section_config(section_num, mode):
+    """Get configuration for a section based on its mode."""
+    if mode == 'quick':
+        return get_quick_config(section_num)
+    elif mode == 'hybrid':
+        return get_hybrid_config(section_num)
+    else:  # full
+        return get_full_config(section_num)
+
+def get_full_config(section_num):
+    """Get full mode configuration for a section."""
+    configs = {
+        1: {
+            'hidden_sizes': [128, 64],
+            'activation': 'relu',
+            'learning_rate': 0.001,
+            'batch_size': 64,
+            'epochs': 20,
+            'optimizer': 'adam',
+            'loss': 'cross_entropy',
+        },
+        2: {
+            'learning_rates': [0.001, 0.01, 0.1],
+            'optimizers': ['sgd', 'adam', 'rmsprop'],
+            'epochs': 20,
+            'batch_size': 64,
+            'weight_decay': 0.0001,
+        },
+        3: {
+            'num_filters': [32, 64, 128],
+            'kernel_sizes': [3, 5],
+            'pool_sizes': [2],
+            'epochs': 10,
+            'batch_size': 32,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+        },
+        4: {
+            'num_layers': [18, 34, 50],
+            'epochs': 10,
+            'batch_size': 32,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+            'pretrained': True,
+        },
     }
-    
-    SECTION3_CONFIG = {
-        'num_filters': [32, 64, 128],
-        'kernel_sizes': [3, 5],
-        'pool_sizes': [2],
-        'epochs': 3,  # Reduced from 10
-        'batch_size': 64,  # Larger batch
-        'learning_rate': 0.001,
-        'optimizer': 'adam',
+    return configs.get(section_num, {})
+
+def get_hybrid_config(section_num):
+    """Get hybrid mode configuration for a section."""
+    configs = {
+        1: {
+            'hidden_sizes': [128, 64],
+            'activation': 'relu',
+            'learning_rate': 0.001,
+            'batch_size': 128,
+            'epochs': 3,
+            'optimizer': 'adam',
+            'loss': 'cross_entropy',
+        },
+        2: {
+            'learning_rates': [0.001, 0.01, 0.1],
+            'optimizers': ['sgd', 'adam', 'rmsprop'],
+            'epochs': 3,
+            'batch_size': 128,
+            'weight_decay': 0.0001,
+        },
+        3: {
+            'num_filters': [32, 64, 128],
+            'kernel_sizes': [3, 5],
+            'pool_sizes': [2],
+            'epochs': 3,
+            'batch_size': 64,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+        },
+        4: {
+            'num_layers': [18, 34, 50],
+            'epochs': 2,
+            'batch_size': 64,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+            'pretrained': True,
+        },
     }
-    
-    SECTION4_CONFIG = {
-        'num_layers': [18, 34, 50],
-        'epochs': 2,  # Ultra-fast: 2 epochs (was 3)
-        'batch_size': 128,  # Larger batch for faster processing (was 64)
-        'learning_rate': 0.001,
-        'optimizer': 'adam',
-        'pretrained': True,
+    return configs.get(section_num, {})
+
+def get_quick_config(section_num):
+    """Get quick mode configuration for a section."""
+    configs = {
+        1: {
+            'hidden_sizes': [64, 32],
+            'activation': 'relu',
+            'learning_rate': 0.001,
+            'batch_size': 128,
+            'epochs': 3,
+            'optimizer': 'adam',
+            'loss': 'cross_entropy',
+        },
+        2: {
+            'learning_rates': [0.001, 0.01, 0.1],
+            'optimizers': ['sgd', 'adam', 'rmsprop'],
+            'epochs': 3,
+            'batch_size': 128,
+            'weight_decay': 0.0001,
+        },
+        3: {
+            'num_filters': [32, 64, 128],
+            'kernel_sizes': [3, 5],
+            'pool_sizes': [2],
+            'epochs': 3,
+            'batch_size': 64,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+        },
+        4: {
+            'num_layers': [18, 34, 50],
+            'epochs': 2,
+            'batch_size': 128,
+            'learning_rate': 0.001,
+            'optimizer': 'adam',
+            'pretrained': True,
+        },
     }
+    return configs.get(section_num, {})
+
+# Apply configurations based on per-section modes
+# Initialize with default modes, can be overridden at runtime
+SECTION1_CONFIG = get_section_config(1, SECTION1_MODE)
+SECTION2_CONFIG = get_section_config(2, SECTION2_MODE)
+SECTION3_CONFIG = get_section_config(3, SECTION3_MODE)
+SECTION4_CONFIG = get_section_config(4, SECTION4_MODE)

@@ -187,7 +187,11 @@ def train_with_optimizer(X_train, y_train, X_val, y_val, model, optimizer,
 
 def run_section2_experiments():
     """Run all Section 2 experiments."""
-    from config import QUICK_MODE, HYBRID_MODE
+    from config import get_section_mode, is_quick_mode, is_hybrid_mode
+    # Get mode for this section
+    section_mode = get_section_mode(2)
+    QUICK_MODE = is_quick_mode(2)
+    HYBRID_MODE = is_hybrid_mode(2)
     
     print("Loading MNIST dataset...")
     X_train, y_train, X_test, y_test = load_mnist_numpy()

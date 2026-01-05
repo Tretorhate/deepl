@@ -391,7 +391,11 @@ def run_section3_experiments():
     # Import optimized CNN for training
     from section3.optimized_cnn_complete import OptimizedCNN, train_optimized_cnn, softmax
     from utils.data_loader import load_mnist_numpy
-    from config import QUICK_MODE, HYBRID_MODE
+    from config import get_section_mode, is_quick_mode, is_hybrid_mode
+    # Get mode for this section
+    section_mode = get_section_mode(3)
+    QUICK_MODE = is_quick_mode(3)
+    HYBRID_MODE = is_hybrid_mode(3)
     
     print("Loading MNIST for pooling comparison...")
     X_train, y_train, X_test, y_test = load_mnist_numpy()
