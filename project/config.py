@@ -67,7 +67,8 @@ RANDOM_SEED = 42
 # - HYBRID_MODE = True: Balanced mode (2-4 hours) - all experiments, reduced epochs
 # - Both False: Full mode (6-11 hours) - complete experiments with full epochs
 QUICK_MODE = False  # Set to True for quick testing only
-HYBRID_MODE = True  # Set to True for balanced mode (recommended)
+HYBRID_MODE = True  # Set to False for full dataset, True for balanced (30k samples, 8-10 epochs)
+# For 95% accuracy in 0.5-1 hour: Use HYBRID_MODE = False with optimized settings below
 
 # Hybrid mode configurations (used when HYBRID_MODE = True)
 # Runs all required experiments but with reduced epochs/datasets for faster execution
@@ -76,8 +77,8 @@ if HYBRID_MODE:
         'hidden_sizes': [128, 64],
         'activation': 'relu',
         'learning_rate': 0.001,
-        'batch_size': 64,
-        'epochs': 5,  # Reduced from 10 for faster execution (minimal quality mode)
+        'batch_size': 128,  # Increased batch size for faster processing (was 64)
+        'epochs': 3,  # Reduced from 5 for faster execution (was 5)
         'optimizer': 'adam',
         'loss': 'cross_entropy',
     }
@@ -85,8 +86,8 @@ if HYBRID_MODE:
     SECTION2_CONFIG = {
         'learning_rates': [0.001, 0.01, 0.1],
         'optimizers': ['sgd', 'adam', 'rmsprop'],  # All 3 optimizers
-        'epochs': 5,  # Reduced from 10 for faster execution (minimal quality mode)
-        'batch_size': 64,
+        'epochs': 3,  # Reduced from 5 for faster execution (was 5)
+        'batch_size': 128,  # Increased batch size for faster processing (was 64)
         'weight_decay': 0.0001,
     }
     
@@ -94,16 +95,16 @@ if HYBRID_MODE:
         'num_filters': [32, 64, 128],
         'kernel_sizes': [3, 5],
         'pool_sizes': [2],
-        'epochs': 3,  # Reduced from 5 for faster execution (minimal quality mode)
-        'batch_size': 32,
+        'epochs': 3,  # Keep at 3 (already minimal)
+        'batch_size': 64,  # Increased batch size for faster processing (was 32)
         'learning_rate': 0.001,
         'optimizer': 'adam',
     }
     
     SECTION4_CONFIG = {
         'num_layers': [18, 34, 50],
-        'epochs': 3,  # Reduced from 5 for faster execution (minimal quality mode)
-        'batch_size': 32,
+        'epochs': 2,  # Reduced from 3 for faster execution (was 3)
+        'batch_size': 64,  # Increased batch size for faster processing (was 32)
         'learning_rate': 0.001,
         'optimizer': 'adam',
         'pretrained': True,
@@ -142,8 +143,8 @@ elif QUICK_MODE:
     
     SECTION4_CONFIG = {
         'num_layers': [18, 34, 50],
-        'epochs': 3,  # Reduced from 10
-        'batch_size': 64,  # Larger batch
+        'epochs': 2,  # Ultra-fast: 2 epochs (was 3)
+        'batch_size': 128,  # Larger batch for faster processing (was 64)
         'learning_rate': 0.001,
         'optimizer': 'adam',
         'pretrained': True,

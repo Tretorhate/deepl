@@ -388,10 +388,9 @@ def run_section3_experiments():
     print("Pooling Strategy Comparison")
     print("=" * 50)
     
-    # Import complete CNN for training
-    from section3.cnn_complete import CNN, train_cnn
+    # Import optimized CNN for training
+    from section3.optimized_cnn_complete import OptimizedCNN, train_optimized_cnn, softmax
     from utils.data_loader import load_mnist_numpy
-    from section1.mlp import softmax
     from config import QUICK_MODE, HYBRID_MODE
     
     print("Loading MNIST for pooling comparison...")
@@ -410,6 +409,10 @@ def run_section3_experiments():
         y_train = y_train[:6000]
         X_test = X_test[:2000]
         y_test = y_test[:2000]
+    else:
+        # Full mode: Use full MNIST dataset for pooling comparison
+        print("FULL MODE: Using full MNIST dataset for pooling comparison")
+        # Don't slice - use full dataset (60k training, 10k test)
     
     # Reshape to (N, 1, 28, 28) for CNN
     X_train = X_train.reshape(-1, 1, 28, 28) / 255.0
@@ -422,41 +425,58 @@ def run_section3_experiments():
         val_size = 1000  # Reduced validation size
         train_pool_size = 4000  # Reduced training size for pooling comparison
     else:
-        val_size = 10000
-        train_pool_size = 10000
+        val_size = 10000  # 10k validation for full 60k training set
+        train_pool_size = 50000  # 50k for pooling comparison (use most of training data)
     
     X_val = X_train[:val_size]
     y_val = y_train[:val_size]
+    
+    # Ensure we don't exceed available data
+    available_train = len(X_train) - val_size
+    train_pool_size = min(train_pool_size, available_train)
+    
     X_train_pool = X_train[val_size:val_size+train_pool_size]
     y_train_pool = y_train[val_size:val_size+train_pool_size]
+    
+    print(f"Pooling comparison: {len(X_train_pool)} training samples, {len(X_val)} validation samples")
+    
+    if len(X_train_pool) == 0:
+        raise ValueError(f"No training samples available! val_size={val_size}, train_pool_size={train_pool_size}, total_samples={len(X_train)}")
     
     pooling_results = {}
     
     for pool_type, use_maxpool in [('MaxPool', True), ('AvgPool', False)]:
-        print(f"\nTraining CNN with {pool_type}...")
-        model = CNN(num_classes=10, use_maxpool=use_maxpool)
+        print(f"\nTraining Optimized CNN with {pool_type}...")
+        model = OptimizedCNN(num_classes=10, use_maxpool=use_maxpool)
         
         if QUICK_MODE:
             epochs_pool = 2
             batch_size_pool = 64
         elif HYBRID_MODE:
-            epochs_pool = 3
+            epochs_pool = 5  # Increased for better pooling comparison
             batch_size_pool = 32
         else:
             epochs_pool = 5
-            batch_size_pool = 32
+            batch_size_pool = 64  # Larger batch for faster training
         
-        train_losses, val_losses, train_accs, val_accs = train_cnn(
+        train_losses, val_losses, train_accs, val_accs = train_optimized_cnn(
             X_train_pool, y_train_pool, X_val, y_val,
             model,
             epochs=epochs_pool,
-            learning_rate=0.001,
+            learning_rate=0.015,  # Higher initial LR with decay schedule
             batch_size=batch_size_pool
         )
         
-        # Test accuracy
-        y_test_pred = model.forward(X_test)
-        test_predictions = np.argmax(softmax(y_test_pred), axis=1)
+        # Test accuracy (batched to avoid memory issues)
+        test_batch_size = 1000  # Process test set in batches
+        test_predictions = []
+        for i in range(0, len(X_test), test_batch_size):
+            X_test_batch = X_test[i:i+test_batch_size]
+            y_test_batch = y_test[i:i+test_batch_size]
+            y_test_pred_batch = model.forward(X_test_batch)
+            test_predictions_batch = np.argmax(softmax(y_test_pred_batch), axis=1)
+            test_predictions.append(test_predictions_batch)
+        test_predictions = np.concatenate(test_predictions)
         test_acc = np.mean(test_predictions == y_test)
         
         pooling_results[pool_type] = {
@@ -518,17 +538,17 @@ def run_section3_experiments():
         print("   Pooling comparison above demonstrates CNN functionality.")
     else:
         if HYBRID_MODE:
-            print("HYBRID MODE: Running CNN training with reduced epochs")
+            print("HYBRID MODE: Running optimized CNN training with reduced epochs")
         try:
-            from section3.cnn_complete import run_cnn_training
-            model_cnn, test_acc_cnn = run_cnn_training()
-            print(f"\nFinal CNN Test Accuracy: {test_acc_cnn:.4f}")
+            from section3.optimized_cnn_complete import run_optimized_cnn_training
+            model_cnn, test_acc_cnn = run_optimized_cnn_training()
+            print(f"\nFinal Optimized CNN Test Accuracy: {test_acc_cnn:.4f}")
             if test_acc_cnn >= 0.95:
                 print("Achieved target accuracy of 95%!")
             else:
                 print(f"⚠ Target accuracy of 95% not reached. Current: {test_acc_cnn:.4f}")
         except Exception as e:
-            print(f"Note: Complete CNN training encountered an issue: {e}")
+            print(f"Note: Complete optimized CNN training encountered an issue: {e}")
             print("This is expected if running in limited resource environment.")
     
     print("\n" + "=" * 50)

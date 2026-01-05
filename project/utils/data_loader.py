@@ -136,17 +136,26 @@ def load_mnist_numpy():
     Returns:
         X_train, y_train, X_test, y_test: NumPy arrays
     """
-    train_loader, test_loader = load_mnist(batch_size=10000, download=True)
+    # Use a large batch size to get all data efficiently
+    train_loader, test_loader = load_mnist(batch_size=60000, download=True)
     
-    # Get all training data
-    X_train, y_train = next(iter(train_loader))
-    X_train = X_train.numpy()
-    y_train = y_train.numpy()
+    # Get all training data (iterate through all batches to ensure we get all 60k samples)
+    X_train_list = []
+    y_train_list = []
+    for X_batch, y_batch in train_loader:
+        X_train_list.append(X_batch.numpy())
+        y_train_list.append(y_batch.numpy())
+    X_train = np.concatenate(X_train_list, axis=0)
+    y_train = np.concatenate(y_train_list, axis=0)
     
-    # Get all test data
-    X_test, y_test = next(iter(test_loader))
-    X_test = X_test.numpy()
-    y_test = y_test.numpy()
+    # Get all test data (iterate through all batches to ensure we get all 10k samples)
+    X_test_list = []
+    y_test_list = []
+    for X_batch, y_batch in test_loader:
+        X_test_list.append(X_batch.numpy())
+        y_test_list.append(y_batch.numpy())
+    X_test = np.concatenate(X_test_list, axis=0)
+    y_test = np.concatenate(y_test_list, axis=0)
     
     # Reshape to (N, 784) for MLP
     X_train = X_train.reshape(X_train.shape[0], -1)

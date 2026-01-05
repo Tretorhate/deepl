@@ -363,9 +363,17 @@ def run_cnn_training():
         batch_size=batch_size_cnn
     )
     
-    # Test accuracy
-    y_test_pred = model_maxpool.forward(X_test)
-    test_predictions = np.argmax(softmax(y_test_pred), axis=1)
+    # Test accuracy (batched to avoid memory issues)
+    test_batch_size = 1000  # Process test set in batches
+    test_predictions = []
+    print("Evaluating on test set (batched)...")
+    for i in range(0, len(X_test), test_batch_size):
+        X_test_batch = X_test[i:i+test_batch_size]
+        y_test_batch = y_test[i:i+test_batch_size]
+        y_test_pred_batch = model_maxpool.forward(X_test_batch)
+        test_predictions_batch = np.argmax(softmax(y_test_pred_batch), axis=1)
+        test_predictions.append(test_predictions_batch)
+    test_predictions = np.concatenate(test_predictions)
     test_acc = np.mean(test_predictions == y_test)
     print(f"\nTest Accuracy: {test_acc:.4f}")
     

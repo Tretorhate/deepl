@@ -175,19 +175,19 @@ def run_section4_experiments():
     
     # Adjust dataset size based on mode
     if QUICK_MODE:
-        print("QUICK MODE: Using reduced dataset size")
+        print("QUICK MODE: Using minimal dataset size for fastest execution")
         from torch.utils.data import Subset
-        train_indices = list(range(0, min(5000, len(train_loader.dataset))))
-        test_indices = list(range(0, min(1000, len(test_loader.dataset))))
+        train_indices = list(range(0, min(2000, len(train_loader.dataset))))  # Reduced from 5000 to 2000
+        test_indices = list(range(0, min(500, len(test_loader.dataset))))  # Reduced from 1000 to 500
         train_subset = Subset(train_loader.dataset, train_indices)
         test_subset = Subset(test_loader.dataset, test_indices)
         train_loader = DataLoader(train_subset, batch_size=batch_size, shuffle=True)
         test_loader = DataLoader(test_subset, batch_size=batch_size, shuffle=False)
     elif HYBRID_MODE:
-        print("HYBRID MODE: Using moderate dataset size (15k training samples)")
+        print("HYBRID MODE: Using reduced dataset size (10k training samples for faster execution)")
         from torch.utils.data import Subset
-        train_indices = list(range(0, min(15000, len(train_loader.dataset))))
-        test_indices = list(range(0, min(3000, len(test_loader.dataset))))
+        train_indices = list(range(0, min(10000, len(train_loader.dataset))))  # Reduced from 15k to 10k
+        test_indices = list(range(0, min(2000, len(test_loader.dataset))))  # Reduced from 3k to 2k
         train_subset = Subset(train_loader.dataset, train_indices)
         test_subset = Subset(test_loader.dataset, test_indices)
         train_loader = DataLoader(train_subset, batch_size=batch_size, shuffle=True)
@@ -322,30 +322,36 @@ def run_section4_experiments():
         )
     
     # Compare training stability (gradient flow)
-    print("\nAnalyzing gradient flow...")
-    
-    def analyze_gradient_flow(model, data_loader, device):
-        """Analyze gradient magnitudes in the network."""
-        model.train()
-        criterion = nn.CrossEntropyLoss()
+    if QUICK_MODE:
+        print("\nQUICK MODE: Skipping detailed gradient flow analysis (saves time)")
+        # Create minimal gradient data for plotting
+        resnet_grads = [('conv1.weight', 0.01), ('bn1.weight', 0.005)]  # Dummy data
+        plain_grads = resnet_grads.copy()  # Same dummy data
+    else:
+        print("\nAnalyzing gradient flow...")
         
-        data, target = next(iter(data_loader))
-        data, target = data.to(device), target.to(device)
+        def analyze_gradient_flow(model, data_loader, device):
+            """Analyze gradient magnitudes in the network."""
+            model.train()
+            criterion = nn.CrossEntropyLoss()
+            
+            data, target = next(iter(data_loader))
+            data, target = data.to(device), target.to(device)
+            
+            output = model(data)
+            loss = criterion(output, target)
+            loss.backward()
+            
+            grad_magnitudes = []
+            for name, param in model.named_parameters():
+                if param.grad is not None:
+                    grad_norm = param.grad.norm().item()
+                    grad_magnitudes.append((name, grad_norm))
+            
+            return grad_magnitudes
         
-        output = model(data)
-        loss = criterion(output, target)
-        loss.backward()
-        
-        grad_magnitudes = []
-        for name, param in model.named_parameters():
-            if param.grad is not None:
-                grad_norm = param.grad.norm().item()
-                grad_magnitudes.append((name, grad_norm))
-        
-        return grad_magnitudes
-    
-    resnet_grads = analyze_gradient_flow(model, train_loader, device)
-    plain_grads = analyze_gradient_flow(plain_model, train_loader, device)
+        resnet_grads = analyze_gradient_flow(model, train_loader, device)
+        plain_grads = analyze_gradient_flow(plain_model, train_loader, device)
     
     # Plot comparison
     import matplotlib.pyplot as plt
@@ -448,9 +454,9 @@ def run_section4_experiments():
             pretrained_val_accs = []
             
             if QUICK_MODE:
-                epochs_ft = 2
+                epochs_ft = 1  # Ultra-fast: 1 epoch for transfer learning (was 2)
             elif HYBRID_MODE:
-                epochs_ft = 3  # Moderate epochs for fine-tuning
+                epochs_ft = 2  # Reduced from 3 for faster execution (was 3)
             else:
                 epochs_ft = 5
             
