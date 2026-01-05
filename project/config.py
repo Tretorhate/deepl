@@ -67,7 +67,7 @@ RANDOM_SEED = 42
 # - HYBRID_MODE = True: Balanced mode (2-4 hours) - all experiments, reduced epochs
 # - Both False: Full mode (6-11 hours) - complete experiments with full epochs
 QUICK_MODE = False  # Set to True for quick testing only
-HYBRID_MODE = True  # Set to False for full dataset, True for balanced (30k samples, 8-10 epochs)
+HYBRID_MODE = False  # Set to False for full dataset, True for balanced (30k samples, 8-10 epochs)
 # For 95% accuracy in 0.5-1 hour: Use HYBRID_MODE = False with optimized settings below
 
 # Hybrid mode configurations (used when HYBRID_MODE = True)
