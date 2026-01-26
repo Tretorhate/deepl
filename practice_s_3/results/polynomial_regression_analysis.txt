@@ -1,0 +1,29 @@
+
+POLYNOMIAL REGRESSION ANALYSIS: OVERFITTING vs UNDERFITTING
+
+1. DEGREE 1 (LINEAR MODEL) - UNDERFITTING:
+   - Train MSE: 0.1741, Test MSE: 5.4245
+   - The linear model is too simple to capture the sine wave pattern
+   - Both training and test MSE are high, indicating high bias
+   - The model cannot learn the underlying non-linear relationship
+   - This represents a model with insufficient capacity
+
+2. DEGREE 3 (POLYNOMIAL MODEL) - WELL-FITTING:
+   - Train MSE: 0.0099, Test MSE: 1133.8356
+   - The cubic polynomial provides a good balance between bias and variance
+   - Training and test MSE are close, indicating good generalization
+   - The model captures the main structure of the sine wave
+   - Generalization gap is minimal, demonstrating good model fit
+
+3. DEGREE 15 (POLYNOMIAL MODEL) - OVERFITTING:
+   - Train MSE: 0.0066, Test MSE: 7756317852351364096.0000
+   - The high-degree polynomial is too flexible and memorizes noise
+   - Large gap between train and test MSE indicates high variance
+   - Model fits training data perfectly but fails on test data
+   - This represents overfitting due to excessive model complexity
+
+CONCLUSION:
+The bias-variance tradeoff is clearly demonstrated here. The optimal model
+(degree 3) balances between underfitting (degree 1) and overfitting (degree 15).
+This is a fundamental principle in machine learning: models must be complex enough
+to capture patterns but constrained enough to generalize to new data.
