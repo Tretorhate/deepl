@@ -70,3 +70,5 @@ data/
 # e.g. add `data/.gitkeep` and commit it if you want the folder structure tracked
 
 *.tex
+
+TODO.md

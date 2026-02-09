@@ -1,0 +1,952 @@
+All visualizations saved to D:\allcode\deeplearning\deepl\endterm\results\results_QUICK_20260209_142907/
+
+============================================================
+  FINAL RESULTS SUMMARY
+============================================================
+Model                Horizon    MSE          RMSE         MAE          MAPE%      Dir%       R²
+-------------------------------------------------------------------------------------------------------
+LSTM                 h1         0.001840     0.042900     0.034586     732.99     59.89      -1.0158
+LSTM                 h5         0.009097     0.095379     0.082920     748.23     61.58      -1.1758
+LSTM                 h20        0.043107     0.207623     0.171669     326.20     33.90      -1.8058
+GRU                  h1         0.005826     0.076330     0.069449     1308.76    39.55      -5.3817
+GRU                  h5         0.007345     0.085703     0.072194     560.76     61.58      -0.7567
+GRU                  h20        0.042778     0.206829     0.166158     280.68     40.11      -1.7844
+Transformer          h1         0.000933     0.030550     0.021345     183.54     59.89      -0.0223
+Transformer          h5         0.004703     0.068575     0.053241     189.57     43.50      -0.1247
+Transformer          h20        0.030587     0.174891     0.142854     258.40     32.77      -0.9909
+
+All outputs saved to: D:\allcode\deeplearning\deepl\endterm\results\results_QUICK_20260209_142907/
+Pipeline complete!
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: QUICK | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option: 99
+Invalid option, try again.
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: QUICK | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option: 9
+
+==================================================
+  Select Execution Mode
+==================================================
+  1. QUICK  - Fast testing (30 epochs, 1 ticker, 2 seeds)
+  2. HYBRID - Moderate (100 epochs, 3 tickers, 3 seeds)
+  3. FULL   - Full experiments (200 epochs, 5 tickers, 5 seeds)
+  0. Cancel
+==================================================
+  Select mode: 2
+  Mode set to: HYBRID
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: HYBRID | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option: 8
+
+============================================================
+  FULL PIPELINE
+  Mode: HYBRID
+  Device: cpu
+============================================================
+
+[Step 1/7] Download & Prepare Data
+
+Downloading data for: ['AAPL', 'MSFT', 'GOOGL']
+  Downloading AAPL...
+    AAPL: 1760 trading days
+  Downloading MSFT...
+    MSFT: 1760 trading days
+  Downloading GOOGL...
+    GOOGL: 1760 trading days
+
+Preparing AAPL...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing MSFT...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing GOOGL...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Data ready for 3 ticker(s).
+
+[Step 2/7] Train LSTM
+
+Training LSTM on AAPL (100 epochs, device=cpu)...
+    Epoch   1/100 | Train: 0.615441 | Val: 0.045454 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.204203 | Val: 0.047940 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.136786 | Val: 0.160066 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.081808 | Val: 0.154101 | LR: 2.50e-04 | Patience: 10/30
+    Epoch  40/100 | Train: 0.071886 | Val: 0.121397 | LR: 1.25e-04 | Patience: 20/30
+    Epoch  50/100 | Train: 0.065595 | Val: 0.153924 | LR: 6.25e-05 | Patience: 30/30
+    Early stopping at epoch 50
+
+Evaluating LSTM...
+  h1: RMSE=0.057554, MAE=0.047479, Dir_Acc=42.94%, R²=-2.6282
+  h5: RMSE=0.093742, MAE=0.069901, Dir_Acc=45.76%, R²=-1.1017
+  h20: RMSE=0.170443, MAE=0.142266, Dir_Acc=67.23%, R²=-0.8909
+
+[Step 3/7] Train GRU
+
+Training GRU on AAPL (100 epochs, device=cpu)...
+    Epoch   1/100 | Train: 0.631851 | Val: 0.075624 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.183364 | Val: 0.137988 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.140257 | Val: 0.202774 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.091191 | Val: 0.199586 | LR: 2.50e-04 | Patience: 10/30
+    Epoch  40/100 | Train: 0.097849 | Val: 0.199905 | LR: 1.25e-04 | Patience: 20/30
+    Epoch  50/100 | Train: 0.081380 | Val: 0.243272 | LR: 6.25e-05 | Patience: 30/30
+    Early stopping at epoch 50
+
+Evaluating GRU...
+  h1: RMSE=0.034895, MAE=0.025662, Dir_Acc=42.37%, R²=-0.3337
+  h5: RMSE=0.082738, MAE=0.064867, Dir_Acc=44.07%, R²=-0.6373
+  h20: RMSE=0.183783, MAE=0.147828, Dir_Acc=46.89%, R²=-1.1985
+
+[Step 4/7] Train Transformer
+
+Training Transformer on AAPL (100 epochs, device=cpu)...
+    Epoch   1/100 | Train: 0.704050 | Val: 0.038502 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.194954 | Val: 0.051454 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.178218 | Val: 0.033625 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.160202 | Val: 0.035008 | LR: 5.00e-04 | Patience: 5/30
+    Epoch  40/100 | Train: 0.136160 | Val: 0.046959 | LR: 2.50e-04 | Patience: 15/30
+    Epoch  50/100 | Train: 0.132108 | Val: 0.051673 | LR: 1.25e-04 | Patience: 25/30
+    Early stopping at epoch 55
+
+Evaluating Transformer...
+  h1: RMSE=0.030873, MAE=0.022072, Dir_Acc=39.55%, R²=-0.0440
+  h5: RMSE=0.078696, MAE=0.060800, Dir_Acc=44.63%, R²=-0.4812
+  h20: RMSE=0.147174, MAE=0.117849, Dir_Acc=48.02%, R²=-0.4098
+
+[Step 5/7] Ensemble Prediction
+
+Training ensemble (3 models) on AAPL...
+
+  --- Ensemble member 1/3 (seed=42) ---
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/30
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/30
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/30
+    Early stopping at epoch 50
+
+  --- Ensemble member 2/3 (seed=43) ---
+    Epoch   1/100 | Train: 0.702484 | Val: 0.026157 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.206809 | Val: 0.104750 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.129211 | Val: 0.171882 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.089709 | Val: 0.199424 | LR: 2.50e-04 | Patience: 10/30
+    Epoch  40/100 | Train: 0.105995 | Val: 0.181816 | LR: 1.25e-04 | Patience: 20/30
+    Epoch  50/100 | Train: 0.076700 | Val: 0.235618 | LR: 6.25e-05 | Patience: 30/30
+    Early stopping at epoch 50
+
+  --- Ensemble member 3/3 (seed=44) ---
+    Epoch   1/100 | Train: 0.631652 | Val: 0.029610 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/100 | Train: 0.169411 | Val: 0.088368 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/100 | Train: 0.121011 | Val: 0.125496 | LR: 5.00e-04 | Patience: 0/30 (warmup)
+    Epoch  30/100 | Train: 0.112086 | Val: 0.106690 | LR: 2.50e-04 | Patience: 10/30
+    Epoch  40/100 | Train: 0.093802 | Val: 0.092720 | LR: 1.25e-04 | Patience: 20/30
+    Epoch  50/100 | Train: 0.074684 | Val: 0.113492 | LR: 6.25e-05 | Patience: 30/30
+    Early stopping at epoch 50
+
+Ensemble Results:
+  h1: RMSE=0.030733, Dir_Acc=61.02%, Avg CI Width=0.228551
+  h5: RMSE=0.097584, Dir_Acc=38.42%, Avg CI Width=0.102182
+  h20: RMSE=0.155144, Dir_Acc=45.76%, Avg CI Width=0.267373
+
+[Step 6/7] Ablation Studies
+
+Running ablation studies (epochs=50)...
+
+[Ablation 1/7] Model type comparison...
+  Training LSTM...
+    Epoch   1/50 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Training GRU...
+    Epoch   1/50 | Train: 0.593698 | Val: 0.043508 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.174522 | Val: 0.090704 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.138772 | Val: 0.153156 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.110586 | Val: 0.219730 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.095133 | Val: 0.215199 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Training Transformer...
+    Epoch   1/50 | Train: 0.697413 | Val: 0.126056 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.207659 | Val: 0.028515 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.228728 | Val: 0.064975 | LR: 1.00e-03 | Patience: 10/30
+    Epoch  30/50 | Train: 0.161130 | Val: 0.050795 | LR: 5.00e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.147905 | Val: 0.049915 | LR: 2.50e-04 | Patience: 30/30
+    Early stopping at epoch 40
+
+[Ablation 2/7] Dropout rates...
+  Dropout=0.0...
+    Epoch   1/50 | Train: 0.473481 | Val: 0.031266 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.128618 | Val: 0.225627 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.070114 | Val: 0.146054 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.056753 | Val: 0.116287 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.032381 | Val: 0.125436 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Dropout=0.1...
+    Epoch   1/50 | Train: 0.521834 | Val: 0.044699 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.175620 | Val: 0.075119 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.077127 | Val: 0.207850 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.058042 | Val: 0.178566 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.058851 | Val: 0.150307 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Dropout=0.2...
+    Epoch   1/50 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Dropout=0.3...
+    Epoch   1/50 | Train: 0.641855 | Val: 0.032860 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.189799 | Val: 0.055115 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.151535 | Val: 0.137911 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.118698 | Val: 0.081420 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.109817 | Val: 0.103296 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  Dropout=0.5...
+    Epoch   1/50 | Train: 0.888487 | Val: 0.078172 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.220619 | Val: 0.056050 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.173585 | Val: 0.070131 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.151167 | Val: 0.094966 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.144520 | Val: 0.116710 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+
+[Ablation 3/7] Batch normalization...
+  BatchNorm=True...
+    Epoch   1/50 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  BatchNorm=False...
+    Epoch   1/50 | Train: 0.559080 | Val: 0.040506 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.142779 | Val: 0.062397 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.105667 | Val: 0.066401 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.063310 | Val: 0.093949 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.052254 | Val: 0.113973 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+
+[Ablation 4/7] Attention (Transformer layers)...
+  Transformer layers=1...
+    Epoch   1/50 | Train: 0.735315 | Val: 0.040521 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.223004 | Val: 0.027783 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.178983 | Val: 0.035997 | LR: 1.00e-03 | Patience: 4/30
+    Epoch  30/50 | Train: 0.160871 | Val: 0.036607 | LR: 5.00e-04 | Patience: 14/30
+    Epoch  40/50 | Train: 0.132981 | Val: 0.051072 | LR: 2.50e-04 | Patience: 24/30
+    Early stopping at epoch 46
+  Transformer layers=2...
+    Epoch   1/50 | Train: 0.697413 | Val: 0.126056 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.207659 | Val: 0.028515 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.228728 | Val: 0.064975 | LR: 1.00e-03 | Patience: 10/30
+    Epoch  30/50 | Train: 0.161130 | Val: 0.050795 | LR: 5.00e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.147905 | Val: 0.049915 | LR: 2.50e-04 | Patience: 30/30
+    Early stopping at epoch 40
+
+[Ablation 5/7] Weight decay...
+  weight_decay=0...
+    Epoch   1/50 | Train: 0.581148 | Val: 0.024868 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.169295 | Val: 0.056131 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.114002 | Val: 0.097972 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.084099 | Val: 0.089257 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.074014 | Val: 0.112567 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  weight_decay=1e-05...
+    Epoch   1/50 | Train: 0.580690 | Val: 0.026548 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.178330 | Val: 0.080892 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.110986 | Val: 0.089318 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.082502 | Val: 0.078533 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.073972 | Val: 0.090483 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  weight_decay=0.0001...
+    Epoch   1/50 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+  weight_decay=0.001...
+    Epoch   1/50 | Train: 0.583200 | Val: 0.028539 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.186907 | Val: 0.092592 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.128868 | Val: 0.101842 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.112137 | Val: 0.079838 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.098362 | Val: 0.096377 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+
+[Ablation 6/7] Single vs multi-horizon...
+    Epoch   1/50 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 10/30
+    Epoch  30/50 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 20/30
+    Epoch  40/50 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 30/30
+    Early stopping at epoch 40
+    Epoch   1/50 | Train: 0.047533 | Val: 0.001165 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  10/50 | Train: 0.015987 | Val: 0.000792 | LR: 1.00e-03 | Patience: 0/30 (warmup)
+    Epoch  20/50 | Train: 0.015234 | Val: 0.001494 | LR: 1.00e-03 | Patience: 6/30
+    Epoch  30/50 | Train: 0.014412 | Val: 0.000842 | LR: 5.00e-04 | Patience: 16/30
+    Epoch  40/50 | Train: 0.012060 | Val: 0.000886 | LR: 2.50e-04 | Patience: 26/30
+    Early stopping at epoch 44
+
+[Ablation 7/7] Window sizes — skipped (requires data re-creation)
+
+Ablation results saved to D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\ablation_results.csv
+     experiment     variant horizon      MSE     RMSE      MAE        MAPE   Dir_Acc        R2
+     model_type        LSTM      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+     model_type        LSTM      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+     model_type        LSTM     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+     model_type         GRU      h1 0.004761 0.068998 0.062021 1251.355835 39.548023 -4.214558
+     model_type         GRU      h5 0.004873 0.069808 0.053831  147.916580 45.762712 -0.165515
+     model_type         GRU     h20 0.046457 0.215538 0.184219  408.407959 33.333333 -2.023810
+     model_type Transformer      h1 0.001171 0.034219 0.026208  334.944519 39.548023 -0.282549
+     model_type Transformer      h5 0.004050 0.063637 0.048979  186.423401 61.581921  0.031448
+     model_type Transformer     h20 0.028748 0.169552 0.137967  242.188232 35.028249 -0.871166
+        dropout         0.0      h1 0.003361 0.057977 0.045561  784.360962 60.451977 -2.681734
+        dropout         0.0      h5 0.009821 0.099103 0.079343  470.910309 38.418079 -1.348956
+        dropout         0.0     h20 0.038145 0.195308 0.159866  285.959351 42.372881 -1.482832
+        dropout         0.1      h1 0.004735 0.068810 0.060424 1153.099609 38.983051 -4.186073
+        dropout         0.1      h5 0.008255 0.090855 0.069801  313.032318 42.372881 -0.974270
+        dropout         0.1     h20 0.028962 0.170182 0.135580  150.021042 29.378531 -0.885090
+        dropout         0.2      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+        dropout         0.2      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+        dropout         0.2     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+        dropout         0.3      h1 0.001030 0.032101 0.023418  254.615112 48.587571 -0.128726
+        dropout         0.3      h5 0.009799 0.098991 0.080539  422.638031 38.418079 -1.343678
+        dropout         0.3     h20 0.032211 0.179475 0.145226  232.382172 41.242938 -1.096584
+        dropout         0.5      h1 0.003488 0.059063 0.047909  795.617126 49.717514 -2.820934
+        dropout         0.5      h5 0.007535 0.086804 0.068025  308.845459 38.418079 -0.802117
+        dropout         0.5     h20 0.028362 0.168410 0.130931  148.550491 43.502825 -0.846040
+     batch_norm        True      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+     batch_norm        True      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+     batch_norm        True     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+     batch_norm       False      h1 0.002255 0.047487 0.039627  704.195618 39.548023 -1.469984
+     batch_norm       False      h5 0.004279 0.065416 0.050640  179.551498 61.581921 -0.023452
+     batch_norm       False     h20 0.034215 0.184974 0.150967  272.297821 25.423729 -1.227032
+attention_depth    layers=1      h1 0.001387 0.037248 0.029685  453.624390 39.548023 -0.519694
+attention_depth    layers=1      h5 0.004847 0.069617 0.053607  207.473450 46.892655 -0.159146
+attention_depth    layers=1     h20 0.018554 0.136212 0.108929  215.517288 50.282486 -0.207633
+attention_depth    layers=2      h1 0.001171 0.034219 0.026208  334.944519 39.548023 -0.282549
+attention_depth    layers=2      h5 0.004050 0.063637 0.048979  186.423401 61.581921  0.031448
+attention_depth    layers=2     h20 0.028748 0.169552 0.137967  242.188232 35.028249 -0.871166
+   weight_decay           0      h1 0.003698 0.060812 0.053695 1028.761353 59.887006 -3.050570
+   weight_decay           0      h5 0.007752 0.088048 0.071659  418.789825 38.983051 -0.854133
+   weight_decay           0     h20 0.019228 0.138664 0.111464  294.252808 66.666667 -0.251506
+   weight_decay       1e-05      h1 0.005259 0.072519 0.066193 1341.828857 59.887006 -4.760280
+   weight_decay       1e-05      h5 0.007586 0.087096 0.071039  418.121674 39.548023 -0.814281
+   weight_decay       1e-05     h20 0.018778 0.137034 0.110810  317.987396 68.361582 -0.222249
+   weight_decay      0.0001      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+   weight_decay      0.0001      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+   weight_decay      0.0001     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+   weight_decay       0.001      h1 0.005496 0.074133 0.068088 1400.160889 59.887006 -5.019582
+   weight_decay       0.001      h5 0.008296 0.091080 0.074653  432.655701 38.418079 -0.984048
+   weight_decay       0.001     h20 0.019957 0.141269 0.111886  262.661469 61.581921 -0.298961
+   horizon_mode       multi      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+   horizon_mode       multi      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+   horizon_mode       multi     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+   horizon_mode   single_h1      h1 0.000946 0.030761 0.021516  218.856354 54.237288 -0.036411
+
+[Step 7/7] Generate Visualizations
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\training_curves.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\model_comparison.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\LSTM_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\GRU_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\Transformer_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\ensemble_AAPL_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\ensemble_AAPL_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\ensemble_AAPL_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\attention_heatmap.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\feature_importance.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852\ablation_results.png
+
+All visualizations saved to D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852/
+
+============================================================
+  FINAL RESULTS SUMMARY
+============================================================
+Model                Horizon    MSE          RMSE         MAE          MAPE%      Dir%       R²
+-------------------------------------------------------------------------------------------------------
+LSTM                 h1         0.003312     0.057554     0.047479     760.27     42.94      -2.6282
+LSTM                 h5         0.008788     0.093742     0.069901     364.23     45.76      -1.1017
+LSTM                 h20        0.029051     0.170443     0.142266     500.59     67.23      -0.8909
+GRU                  h1         0.001218     0.034895     0.025662     210.65     42.37      -0.3337
+GRU                  h5         0.006846     0.082738     0.064867     320.17     44.07      -0.6373
+GRU                  h20        0.033776     0.183783     0.147828     401.51     46.89      -1.1985
+Transformer          h1         0.000953     0.030873     0.022072     135.17     39.55      -0.0440
+Transformer          h5         0.006193     0.078696     0.060800     241.60     44.63      -0.4812
+Transformer          h20        0.021660     0.147174     0.117849     195.49     48.02      -0.4098
+
+All outputs saved to: D:\allcode\deeplearning\deepl\endterm\results\results_HYBRID_20260209_144852/
+Pipeline complete!
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: HYBRID | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option: 9
+
+==================================================
+  Select Execution Mode
+==================================================
+  1. QUICK  - Fast testing (30 epochs, 1 ticker, 2 seeds)
+  2. HYBRID - Moderate (100 epochs, 3 tickers, 3 seeds)
+  3. FULL   - Full experiments (200 epochs, 5 tickers, 5 seeds)
+  0. Cancel
+==================================================
+  Select mode: 3
+  Mode set to: FULL
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: FULL | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option: 8
+
+============================================================
+  FULL PIPELINE
+  Mode: FULL
+  Device: cpu
+============================================================
+
+[Step 1/7] Download & Prepare Data
+
+Downloading data for: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', '^GSPC']
+  Downloading AAPL...
+    AAPL: 1760 trading days
+  Downloading MSFT...
+    MSFT: 1760 trading days
+  Downloading GOOGL...
+    GOOGL: 1760 trading days
+  Downloading AMZN...
+    AMZN: 1760 trading days
+  Downloading ^GSPC...
+    ^GSPC: 1760 trading days
+
+Preparing AAPL...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing MSFT...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing GOOGL...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing AMZN...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Preparing ^GSPC...
+    Sequences -> Train: 1117, Val: 177, Test: 177
+    Features: 26, Seq len: 60
+
+Data ready for 5 ticker(s).
+
+[Step 2/7] Train LSTM
+
+Training LSTM on AAPL (200 epochs, device=cpu)...
+    Epoch   1/200 | Train: 0.599939 | Val: 0.045617 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.170287 | Val: 0.105790 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.127956 | Val: 0.208345 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.090208 | Val: 0.184897 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.072941 | Val: 0.169083 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.062499 | Val: 0.206257 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.065737 | Val: 0.190408 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.077609 | Val: 0.196551 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.066467 | Val: 0.195843 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+Evaluating LSTM...
+  h1: RMSE=0.039381, MAE=0.030104, Dir_Acc=58.19%, R²=-0.6987
+  h5: RMSE=0.075460, MAE=0.055398, Dir_Acc=51.98%, R²=-0.3619
+  h20: RMSE=0.142164, MAE=0.116703, Dir_Acc=66.67%, R²=-0.3155
+
+[Step 3/7] Train GRU
+
+Training GRU on AAPL (200 epochs, device=cpu)...
+    Epoch   1/200 | Train: 0.637977 | Val: 0.107782 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.186004 | Val: 0.115735 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.141646 | Val: 0.152283 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.095867 | Val: 0.167033 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.085053 | Val: 0.152243 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.086687 | Val: 0.174451 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.074112 | Val: 0.164407 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.064150 | Val: 0.170318 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.073692 | Val: 0.167928 | LR: 1.56e-05 | Patience: 40/40
+    Early stopping at epoch 80
+
+Evaluating GRU...
+  h1: RMSE=0.061875, MAE=0.049470, Dir_Acc=41.24%, R²=-3.1934
+  h5: RMSE=0.104500, MAE=0.084619, Dir_Acc=38.42%, R²=-1.6118
+  h20: RMSE=0.182328, MAE=0.148805, Dir_Acc=47.46%, R²=-1.1638
+
+[Step 4/7] Train Transformer
+
+Training Transformer on AAPL (200 epochs, device=cpu)...
+    Epoch   1/200 | Train: 0.785056 | Val: 0.053474 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.215010 | Val: 0.040169 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.197763 | Val: 0.034883 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.157099 | Val: 0.043945 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.133437 | Val: 0.057202 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.104980 | Val: 0.070210 | LR: 1.25e-04 | Patience: 10/40
+    Epoch  60/200 | Train: 0.109427 | Val: 0.064628 | LR: 6.25e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.112386 | Val: 0.074811 | LR: 3.13e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.112884 | Val: 0.057766 | LR: 1.56e-05 | Patience: 40/40
+    Early stopping at epoch 80
+
+Evaluating Transformer...
+  h1: RMSE=0.030228, MAE=0.021086, Dir_Acc=59.89%, R²=-0.0008
+  h5: RMSE=0.072674, MAE=0.055388, Dir_Acc=44.07%, R²=-0.2632
+  h20: RMSE=0.140913, MAE=0.111066, Dir_Acc=61.58%, R²=-0.2924
+
+[Step 5/7] Ensemble Prediction
+
+Training ensemble (5 models) on AAPL...
+
+  --- Ensemble member 1/5 (seed=42) ---
+    Epoch   1/200 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.062383 | Val: 0.136744 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.069212 | Val: 0.136938 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+  --- Ensemble member 2/5 (seed=43) ---
+    Epoch   1/200 | Train: 0.702484 | Val: 0.026157 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.206809 | Val: 0.104750 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.129211 | Val: 0.171882 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.089709 | Val: 0.199424 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.105995 | Val: 0.181816 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.076700 | Val: 0.235618 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.081922 | Val: 0.206594 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.079096 | Val: 0.229183 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.067022 | Val: 0.218357 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+  --- Ensemble member 3/5 (seed=44) ---
+    Epoch   1/200 | Train: 0.631652 | Val: 0.029610 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.169411 | Val: 0.088368 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.121011 | Val: 0.125496 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.112086 | Val: 0.106690 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.093802 | Val: 0.092720 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.074684 | Val: 0.113492 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.080793 | Val: 0.107590 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.081920 | Val: 0.115653 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.083826 | Val: 0.113953 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+  --- Ensemble member 4/5 (seed=45) ---
+    Epoch   1/200 | Train: 0.590774 | Val: 0.082378 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.152402 | Val: 0.119810 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.123756 | Val: 0.158544 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.091496 | Val: 0.203251 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.079821 | Val: 0.202611 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.062217 | Val: 0.191684 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.075782 | Val: 0.194191 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.088693 | Val: 0.183415 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.080117 | Val: 0.183959 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+  --- Ensemble member 5/5 (seed=46) ---
+    Epoch   1/200 | Train: 0.582341 | Val: 0.064954 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/200 | Train: 0.191753 | Val: 0.062217 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/200 | Train: 0.102509 | Val: 0.101095 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/200 | Train: 0.082663 | Val: 0.168476 | LR: 2.50e-04 | Patience: 0/40 (warmup)
+    Epoch  40/200 | Train: 0.073933 | Val: 0.179650 | LR: 1.25e-04 | Patience: 0/40 (warmup)
+    Epoch  50/200 | Train: 0.064937 | Val: 0.196080 | LR: 6.25e-05 | Patience: 10/40
+    Epoch  60/200 | Train: 0.066435 | Val: 0.207988 | LR: 3.13e-05 | Patience: 20/40
+    Epoch  70/200 | Train: 0.067215 | Val: 0.184915 | LR: 1.56e-05 | Patience: 30/40
+    Epoch  80/200 | Train: 0.058515 | Val: 0.191772 | LR: 7.81e-06 | Patience: 40/40
+    Early stopping at epoch 80
+
+Ensemble Results:
+  h1: RMSE=0.049662, Dir_Acc=59.89%, Avg CI Width=0.254457
+  h5: RMSE=0.073788, Dir_Acc=42.37%, Avg CI Width=0.291331
+  h20: RMSE=0.155195, Dir_Acc=54.24%, Avg CI Width=0.301835
+
+[Step 6/7] Ablation Studies
+
+Running ablation studies (epochs=100)...
+
+[Ablation 1/7] Model type comparison...
+  Training LSTM...
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Training GRU...
+    Epoch   1/100 | Train: 0.593698 | Val: 0.043508 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.174522 | Val: 0.090704 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.138772 | Val: 0.153156 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.110586 | Val: 0.219730 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.095133 | Val: 0.215199 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.095962 | Val: 0.268605 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.089911 | Val: 0.283022 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Training Transformer...
+    Epoch   1/100 | Train: 0.697413 | Val: 0.126056 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.207659 | Val: 0.028515 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.228728 | Val: 0.064975 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.161130 | Val: 0.050795 | LR: 5.00e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.147905 | Val: 0.049915 | LR: 2.50e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.131943 | Val: 0.069563 | LR: 1.25e-04 | Patience: 30/40
+    Epoch  60/100 | Train: 0.115039 | Val: 0.073839 | LR: 6.25e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 2/7] Dropout rates...
+  Dropout=0.0...
+    Epoch   1/100 | Train: 0.473481 | Val: 0.031266 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.128618 | Val: 0.225627 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.070114 | Val: 0.146054 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.056753 | Val: 0.116287 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.032381 | Val: 0.125436 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.033560 | Val: 0.118907 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.029403 | Val: 0.107381 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Dropout=0.1...
+    Epoch   1/100 | Train: 0.521834 | Val: 0.044699 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.175620 | Val: 0.075119 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.077127 | Val: 0.207850 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.058042 | Val: 0.178566 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.058851 | Val: 0.150307 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.044601 | Val: 0.179963 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.049487 | Val: 0.172972 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Dropout=0.2...
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Dropout=0.3...
+    Epoch   1/100 | Train: 0.641855 | Val: 0.032860 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.189799 | Val: 0.055115 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.151535 | Val: 0.137911 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.118698 | Val: 0.081420 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.109817 | Val: 0.103296 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.074487 | Val: 0.135168 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.093968 | Val: 0.117942 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Dropout=0.5...
+    Epoch   1/100 | Train: 0.888487 | Val: 0.078172 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.220619 | Val: 0.056050 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.173585 | Val: 0.070131 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.151167 | Val: 0.094966 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.144520 | Val: 0.116710 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.128289 | Val: 0.134025 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.155225 | Val: 0.131706 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 3/7] Batch normalization...
+  BatchNorm=True...
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  BatchNorm=False...
+    Epoch   1/100 | Train: 0.559080 | Val: 0.040506 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.142779 | Val: 0.062397 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.105667 | Val: 0.066401 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.063310 | Val: 0.093949 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.052254 | Val: 0.113973 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.055174 | Val: 0.116679 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.055628 | Val: 0.120795 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 4/7] Attention (Transformer layers)...
+  Transformer layers=1...
+    Epoch   1/100 | Train: 0.735315 | Val: 0.040521 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.223004 | Val: 0.027783 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.178983 | Val: 0.035997 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.160871 | Val: 0.036607 | LR: 5.00e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.132981 | Val: 0.051072 | LR: 2.50e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.112697 | Val: 0.049606 | LR: 1.25e-04 | Patience: 30/40
+    Epoch  60/100 | Train: 0.107033 | Val: 0.052511 | LR: 6.25e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  Transformer layers=2...
+    Epoch   1/100 | Train: 0.697413 | Val: 0.126056 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.207659 | Val: 0.028515 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.228728 | Val: 0.064975 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.161130 | Val: 0.050795 | LR: 5.00e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.147905 | Val: 0.049915 | LR: 2.50e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.131943 | Val: 0.069563 | LR: 1.25e-04 | Patience: 30/40
+    Epoch  60/100 | Train: 0.115039 | Val: 0.073839 | LR: 6.25e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 5/7] Weight decay...
+  weight_decay=0...
+    Epoch   1/100 | Train: 0.581148 | Val: 0.024868 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.169295 | Val: 0.056131 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.114002 | Val: 0.097972 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.084099 | Val: 0.089257 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.074014 | Val: 0.112567 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.061978 | Val: 0.136012 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.073614 | Val: 0.121527 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  weight_decay=1e-05...
+    Epoch   1/100 | Train: 0.580690 | Val: 0.026548 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.178330 | Val: 0.080892 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.110986 | Val: 0.089318 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.082502 | Val: 0.078533 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.073972 | Val: 0.090483 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.058771 | Val: 0.116696 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.070493 | Val: 0.101955 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  weight_decay=0.0001...
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+  weight_decay=0.001...
+    Epoch   1/100 | Train: 0.583200 | Val: 0.028539 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.186907 | Val: 0.092592 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.128868 | Val: 0.101842 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.112137 | Val: 0.079838 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.098362 | Val: 0.096377 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.081713 | Val: 0.117611 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.095573 | Val: 0.111486 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 6/7] Single vs multi-horizon...
+    Epoch   1/100 | Train: 0.580670 | Val: 0.025798 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.170513 | Val: 0.059348 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.109747 | Val: 0.112132 | LR: 5.00e-04 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.086188 | Val: 0.109402 | LR: 2.50e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.075690 | Val: 0.110537 | LR: 1.25e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.062367 | Val: 0.145380 | LR: 6.25e-05 | Patience: 30/40
+    Epoch  60/100 | Train: 0.075885 | Val: 0.124367 | LR: 3.13e-05 | Patience: 40/40
+    Early stopping at epoch 60
+    Epoch   1/100 | Train: 0.047533 | Val: 0.001165 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  10/100 | Train: 0.015987 | Val: 0.000792 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  20/100 | Train: 0.015234 | Val: 0.001494 | LR: 1.00e-03 | Patience: 0/40 (warmup)
+    Epoch  30/100 | Train: 0.014412 | Val: 0.000842 | LR: 5.00e-04 | Patience: 10/40
+    Epoch  40/100 | Train: 0.012060 | Val: 0.000886 | LR: 2.50e-04 | Patience: 20/40
+    Epoch  50/100 | Train: 0.011587 | Val: 0.000956 | LR: 1.25e-04 | Patience: 30/40
+    Epoch  60/100 | Train: 0.010981 | Val: 0.000901 | LR: 6.25e-05 | Patience: 40/40
+    Early stopping at epoch 60
+
+[Ablation 7/7] Window sizes — skipped (requires data re-creation)
+
+Ablation results saved to D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\ablation_results.csv
+     experiment     variant horizon      MSE     RMSE      MAE        MAPE   Dir_Acc        R2
+     model_type        LSTM      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+     model_type        LSTM      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+     model_type        LSTM     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+     model_type         GRU      h1 0.004761 0.068998 0.062021 1251.355835 39.548023 -4.214558
+     model_type         GRU      h5 0.004873 0.069808 0.053831  147.916580 45.762712 -0.165515
+     model_type         GRU     h20 0.046457 0.215538 0.184219  408.407959 33.333333 -2.023810
+     model_type Transformer      h1 0.001171 0.034219 0.026208  334.944519 39.548023 -0.282549
+     model_type Transformer      h5 0.004050 0.063637 0.048979  186.423401 61.581921  0.031448
+     model_type Transformer     h20 0.028748 0.169552 0.137967  242.188232 35.028249 -0.871166
+        dropout         0.0      h1 0.003361 0.057977 0.045561  784.360962 60.451977 -2.681734
+        dropout         0.0      h5 0.009821 0.099103 0.079343  470.910309 38.418079 -1.348956
+        dropout         0.0     h20 0.038145 0.195308 0.159866  285.959351 42.372881 -1.482832
+        dropout         0.1      h1 0.004735 0.068810 0.060424 1153.099609 38.983051 -4.186073
+        dropout         0.1      h5 0.008255 0.090855 0.069801  313.032318 42.372881 -0.974270
+        dropout         0.1     h20 0.028962 0.170182 0.135580  150.021042 29.378531 -0.885090
+        dropout         0.2      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+        dropout         0.2      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+        dropout         0.2     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+        dropout         0.3      h1 0.001030 0.032101 0.023418  254.615112 48.587571 -0.128726
+        dropout         0.3      h5 0.009799 0.098991 0.080539  422.638031 38.418079 -1.343678
+        dropout         0.3     h20 0.032211 0.179475 0.145226  232.382172 41.242938 -1.096584
+        dropout         0.5      h1 0.003488 0.059063 0.047909  795.617126 49.717514 -2.820934
+        dropout         0.5      h5 0.007535 0.086804 0.068025  308.845459 38.418079 -0.802117
+        dropout         0.5     h20 0.028362 0.168410 0.130931  148.550491 43.502825 -0.846040
+     batch_norm        True      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+     batch_norm        True      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+     batch_norm        True     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+     batch_norm       False      h1 0.002255 0.047487 0.039627  704.195618 39.548023 -1.469984
+     batch_norm       False      h5 0.004279 0.065416 0.050640  179.551498 61.581921 -0.023452
+     batch_norm       False     h20 0.034215 0.184974 0.150967  272.297821 25.423729 -1.227032
+attention_depth    layers=1      h1 0.001387 0.037248 0.029685  453.624390 39.548023 -0.519694
+attention_depth    layers=1      h5 0.004847 0.069617 0.053607  207.473450 46.892655 -0.159146
+attention_depth    layers=1     h20 0.018554 0.136212 0.108929  215.517288 50.282486 -0.207633
+attention_depth    layers=2      h1 0.001171 0.034219 0.026208  334.944519 39.548023 -0.282549
+attention_depth    layers=2      h5 0.004050 0.063637 0.048979  186.423401 61.581921  0.031448
+attention_depth    layers=2     h20 0.028748 0.169552 0.137967  242.188232 35.028249 -0.871166
+   weight_decay           0      h1 0.003698 0.060812 0.053695 1028.761353 59.887006 -3.050570
+   weight_decay           0      h5 0.007752 0.088048 0.071659  418.789825 38.983051 -0.854133
+   weight_decay           0     h20 0.019228 0.138664 0.111464  294.252808 66.666667 -0.251506
+   weight_decay       1e-05      h1 0.005259 0.072519 0.066193 1341.828857 59.887006 -4.760280
+   weight_decay       1e-05      h5 0.007586 0.087096 0.071039  418.121674 39.548023 -0.814281
+   weight_decay       1e-05     h20 0.018778 0.137034 0.110810  317.987396 68.361582 -0.222249
+   weight_decay      0.0001      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+   weight_decay      0.0001      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+   weight_decay      0.0001     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+   weight_decay       0.001      h1 0.005496 0.074133 0.068088 1400.160889 59.887006 -5.019582
+   weight_decay       0.001      h5 0.008296 0.091080 0.074653  432.655701 38.418079 -0.984048
+   weight_decay       0.001     h20 0.019957 0.141269 0.111886  262.661469 61.581921 -0.298961
+   horizon_mode       multi      h1 0.004191 0.064737 0.057667 1123.470581 59.887006 -3.590432
+   horizon_mode       multi      h5 0.007208 0.084897 0.069385  404.921875 43.502825 -0.723814
+   horizon_mode       multi     h20 0.019612 0.140043 0.110303  254.347855 63.841808 -0.276529
+   horizon_mode   single_h1      h1 0.000946 0.030761 0.021516  218.856354 54.237288 -0.036411
+
+[Step 7/7] Generate Visualizations
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\training_curves.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\model_comparison.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\LSTM_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\GRU_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_predictions_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_residuals_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_predictions_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_residuals_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_predictions_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\Transformer_residuals_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\ensemble_AAPL_h1.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\ensemble_AAPL_h5.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\ensemble_AAPL_h20.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\attention_heatmap.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\feature_importance.png
+    Saved: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506\ablation_results.png
+
+All visualizations saved to D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506/
+
+============================================================
+  FINAL RESULTS SUMMARY
+============================================================
+Model                Horizon    MSE          RMSE         MAE          MAPE%      Dir%       R²
+-------------------------------------------------------------------------------------------------------
+LSTM                 h1         0.001551     0.039381     0.030104     426.93     58.19      -0.6987
+LSTM                 h5         0.005694     0.075460     0.055398     218.55     51.98      -0.3619
+LSTM                 h20        0.020211     0.142164     0.116703     350.33     66.67      -0.3155
+GRU                  h1         0.003828     0.061875     0.049470     1003.79    41.24      -3.1934
+GRU                  h5         0.010920     0.104500     0.084619     477.64     38.42      -1.6118
+GRU                  h20        0.033243     0.182328     0.148805     360.72     47.46      -1.1638
+Transformer          h1         0.000914     0.030228     0.021086     139.86     59.89      -0.0008
+Transformer          h5         0.005281     0.072674     0.055388     162.90     44.07      -0.2632
+Transformer          h20        0.019856     0.140913     0.111066     150.34     61.58      -0.2924
+
+All outputs saved to: D:\allcode\deeplearning\deepl\endterm\results\results_FULL_20260209_152506/
+Pipeline complete!
+
+==================================================
+  Multi-Horizon Financial Predictor
+  Mode: FULL | Device: cpu
+==================================================
+  1. Download & Prepare Data
+  2. Train LSTM Model
+  3. Train GRU Model
+  4. Train Transformer Model
+  5. Run Ensemble Prediction (with uncertainty)
+  6. Run Ablation Studies
+  7. Generate All Visualizations
+  8. Run Full Pipeline (1-7)
+  9. Change Execution Mode
+  0. Exit
+==================================================
+  Select option:
