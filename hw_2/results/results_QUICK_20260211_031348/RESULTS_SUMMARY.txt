@@ -1,0 +1,32 @@
+======================================================================
+INTELLIGENT HEALTHCARE ASSISTANT SYSTEM - RESULTS SUMMARY
+Generated: 2026-02-11 03:13:51
+Mode: QUICK
+Device: cpu
+======================================================================
+
+PART 1: MEDICAL TEXT ANALYSIS
+----------------------------------------------------------------------
+  lstm: {'accuracy': np.float64(100.0), 'loss': 0.0003786757297348231, 'predictions': array([0, 2, 3, 0, 3, 2, 1, 2, 3, 0, 0, 3, 2, 1, 1]), 'labels': array([0, 2, 3, 0, 3, 2, 1, 2, 3, 0, 0, 3, 2, 1, 1]), 'Medications_acc': np.float64(100.0), 'Procedures_acc': np.float64(100.0), 'Diseases_acc': np.float64(100.0), 'Wellness_acc': np.float64(100.0)}
+  transformer: {'accuracy': np.float64(100.0), 'loss': 0.002070721471682191, 'predictions': array([0, 2, 3, 0, 3, 2, 1, 2, 3, 0, 0, 3, 2, 1, 1]), 'labels': array([0, 2, 3, 0, 3, 2, 1, 2, 3, 0, 0, 3, 2, 1, 1]), 'Medications_acc': np.float64(100.0), 'Procedures_acc': np.float64(100.0), 'Diseases_acc': np.float64(100.0), 'Wellness_acc': np.float64(100.0)}
+
+PART 2: MEDICAL IMAGE ANALYSIS
+----------------------------------------------------------------------
+  resnet18: {'accuracy': np.float64(96.66666666666667), 'loss': 0.051661559366039, 'predictions': array([0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
+       1, 1, 1, 0, 1, 0, 0, 1]), 'labels': array([0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
+       1, 1, 1, 0, 1, 0, 1, 1]), 'Normal_acc': np.float64(100.0), 'Abnormal_acc': np.float64(93.33333333333333)}
+  resnet50: {'accuracy': np.float64(100.0), 'loss': 9.6697034450699e-06, 'predictions': array([0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
+       1, 1, 1, 0, 1, 0, 1, 1]), 'labels': array([0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0,
+       1, 1, 1, 0, 1, 0, 1, 1]), 'Normal_acc': np.float64(100.0), 'Abnormal_acc': np.float64(100.0)}
+
+PART 3: GENERATIVE MODELS
+----------------------------------------------------------------------
+  Generated samples: 20
+  Model type: VAE
+
+PART 5: ETHICS & FAIRNESS
+----------------------------------------------------------------------
+  Bias audit completed
+  Ethics report: 2316 words
+  Recommendations: 5
+

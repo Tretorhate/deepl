@@ -55,20 +55,72 @@ Thumbs.db
 # Python environments
 .python-version
 
-# Model artifacts and outputs (ignored by default; remove if you want these tracked)
-models/
+# Model checkpoints and weights (NOT source code)
 checkpoints/
 *.ckpt
 *.pth
+*.pt
 *.h5
+saved_models/
+model_weights/
 
+# Large datasets (raw data, NOT data loaders/processors)
+MNIST/
+CIFAR/
+cifar-10-python.tar.gz
+cifar-10-batches-py/
+FashionMNIST/
+ImageNet/
+*.tar.gz
+*.zip
 
-# Datasets (ignored by default; remove if you intend to include small datasets)
-data/
+# Generated synthetic images and large datasets
+hw_2/data/synthetic_images/
+hw_2/data/generated/
+endterm/data/downloaded/
 
-# Keep a README or placeholder file if you want to track empty folders
-# e.g. add `data/.gitkeep` and commit it if you want the folder structure tracked
+# Large result/output files
+results/*.png
+results/*.jpg
+results/*.jpeg
+results/*.gif
+hw_2/results/*.png
+hw_2/results/*.jpg
+hw_2/results/synthetic_images/
+endterm/results/*.png
+endterm/results/*.jpg
 
+# Temporary data caches
+.cache/
+*.cache
+pretrained_models/
+downloaded_models/
+
+# Jupiter notebook outputs (keep .ipynb files but ignore outputs)
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Documentation and project files
 *.tex
-
 TODO.md
+
+# Markdown files (except README)
+*.md
+!README.md
+
+# Template files and directories
+templates/
+*.template
+*.jinja2
+*.jinja
+main_template.py
+*_template.py
+*template.py
+
+# Note: DO NOT IGNORE source code directories!
+# ✓ data/ (data loaders - kept)
+# ✓ models/ (model architectures - kept)
+# ✓ training/ (training code - kept)
+# ✓ evaluation/ (evaluation code - kept)
+# ✓ optimization/ (optimization code - kept)
+# ✓ models_generative/ (generative architectures - kept)
